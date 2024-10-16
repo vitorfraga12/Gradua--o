@@ -1,0 +1,38 @@
+% Parâmetros do guia de onda
+a = 2.5e-2; % largura (m)
+h = 1.0e-2; % altura (m)
+c = 3e8;    % velocidade da luz (m/s)
+
+% Definir a frequência de operação
+f = 10e9;   % Frequência de 10 GHz
+
+% Cálculo da frequência de corte para modos TE_mn
+m = 1; % modo TE10
+n = 0;
+
+% Fórmula da frequência de corte
+fc = (c / 2) * sqrt((m / a)^2 + (n / h)^2);
+
+% Constante de propagação
+lambda_c = c / fc;  % comprimento de onda de corte
+lambda = c / f;     % comprimento de onda de operação
+beta = 2 * pi * sqrt(1/lambda^2 - 1/lambda_c^2); % constante de propagação
+
+fprintf('Frequência de corte: %.2f GHz\n', fc / 1e9);
+fprintf('Constante de propagação β: %.2f rad/m\n', beta);
+
+% Geração de uma malha de pontos para plotar os campos
+x = linspace(0, a, 100);
+y = linspace(0, h, 100);
+[X, Y] = meshgrid(x, y);
+
+% Equação do campo elétrico no modo TE10
+Ez = sin(pi * X / a);
+
+% Visualização do campo
+figure;
+surf(X, Y, Ez);
+title('Campo Elétrico (E_z) no Modo TE_{10}');
+xlabel('x (m)');
+ylabel('y (m)');
+zlabel('E_z');

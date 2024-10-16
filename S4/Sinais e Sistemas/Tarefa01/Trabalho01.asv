@@ -1,0 +1,43 @@
+%% Questão 01
+hz = 60;  % f = 60Hz
+periodo = 1 / hz;  % T = 0.0166666667s
+pvalores = [3, 5, 10, 50];  % Numéro de amostras para cada período
+
+% Criamos um vetor para servir de parametro para o período
+tempo = 0:1e-9:periodo;  % Usamos uma alta taxa amostral para conseguir expressar de forma suave os gráficos
+
+% Plotamos uma senoide para cada valor de P, sendo eles 3, 5, 10 e 50
+for p = pvalores
+    t = 0:periodo/p:periodo - periodo/p;  % Vetor de tempo para o período com P amostras
+    sen = sin(2*pi*hz*t); % 
+    
+    % Plote a senoide
+    figure;
+    plot(t, sen);
+    title(['P = ' num2str(p) ' amostras por período']);
+    xlabel('Tempo (s)');
+    ylabel('Amplitude');
+end
+%% 
+% Questão 01
+hz = 60;  % f = 60Hz
+periodo = 1 / hz;  % T = 0.0166666667s
+pvalores = [3, 5, 10, 50];  % Numéro de amostras para cada período
+
+% Plotamos uma senoide para cada valor de P, sendo eles 3, 5, 10 e 50
+for p = pvalores
+    n = 0:(p-1);  % Vetor de índices de tempo discreto
+    t = n * periodo / p;  % Vetor de tempo discreto
+    
+    sen = sin(2*pi*hz*t);  % Senoide no domínio do tempo discreto
+    
+    % Plote a senoide
+    figure;
+    stem(n, sen, 'k', 'filled');
+    title(['P = ' num2str(p) ' amostras por período']);
+    xlabel('Amostras');
+    ylabel('Amplitude');
+    grid on;
+end
+
+
